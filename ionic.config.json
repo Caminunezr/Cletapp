@@ -1,0 +1,7 @@
+{
+  "name": "Cletapp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
