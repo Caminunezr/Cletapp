@@ -1,0 +1,21 @@
+ion-list {
+    margin: 20px;
+  }
+  
+  ion-item {
+    border-bottom: 1px solid #ccc;
+  }
+  
+  ion-item:last-child {
+    border-bottom: none;
+  }
+  
+  ion-label h2 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+  }
+  
+  ion-label p {
+    font-size: 0.9em;
+    color: #666;
+  }

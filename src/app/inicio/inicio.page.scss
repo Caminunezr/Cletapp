@@ -1,0 +1,33 @@
+.app-logo {
+    height: 40px;
+  }
+  
+  .weather-icon {
+    font-size: 1.5em;
+    margin-right: 0.5em;
+  }
+  
+  .summary-card {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .summary-card h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .action-buttons {
+    margin: 20px;
+  }
+  
+  ion-button {
+    margin-top: 10px;
+  }
+  
+  ion-tab-bar {
+    --background: #ffffff;
+  }
