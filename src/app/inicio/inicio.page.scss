@@ -31,3 +31,32 @@
   ion-tab-bar {
     --background: #ffffff;
   }
+// logo image 
+
+/* Logo image */
+.app-logo {
+  width: 50px; /* Ajusta el tamaño del logo según prefieras */
+  height: auto; /* Mantiene la proporción del logo */
+  display: block;
+  margin-left: 0; /* Alinea el logo a la izquierda */
+}
+
+/* Ajustes en ion-toolbar */
+ion-toolbar {
+  display: flex;
+  justify-content: space-between; /* Espacia el contenido para tener el logo a la izquierda y los botones a la derecha */
+  align-items: center; /* Centra verticalmente el contenido */
+  padding: 0 16px; /* Añade padding para un espaciado cómodo a los lados */
+}
+
+/* Ajustes para ion-title para alinear el contenido a la izquierda */
+ion-title {
+  display: flex;
+  align-items: center; /* Centra verticalmente el logo dentro del ion-title */
+  justify-content: flex-start; /* Alinea el logo a la izquierda */
+}
+
+/* Espaciado para el botón de clima en la esquina superior derecha */
+ion-buttons {
+  margin-left: auto; /* Empuja los botones al final (derecha) del toolbar */
+}

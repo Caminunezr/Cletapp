@@ -25,15 +25,10 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/inicio',
+        redirectTo: '/tabs/inicio',
         pathMatch: 'full'
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: '/tabs/inicio',
-    pathMatch: 'full'
   }
 ];
 

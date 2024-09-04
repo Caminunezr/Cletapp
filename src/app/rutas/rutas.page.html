@@ -1,16 +1,21 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>Rutas Guardadas</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <ion-list>
-      <ion-item *ngFor="let ruta of rutasGuardadas" (click)="verRuta(ruta)">
-        <ion-label>
-          <h2>{{ ruta.nombre }}</h2>
-          <p>{{ ruta.distancia }} km - {{ ruta.tiempo }}</p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+  <ion-toolbar>
+    <ion-title>Rutas Guardadas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let ruta of rutasGuardadas; let i = index">
+      <ion-label>
+        <h2>{{ ruta.nombre }}</h2>
+        <p>Fecha: {{ ruta.fecha }}</p>
+        <p>Hora de Inicio: {{ ruta.horaInicio }}</p>
+        <p>Hora de Término: {{ ruta.horaTermino }}</p>
+        <p>Tiempo Transcurrido: {{ ruta.tiempoTranscurrido }}</p>
+        <p>Distancia: {{ ruta.distancia }}</p>
+      </ion-label>
+      <ion-button slot="end" (click)="editarNombreRuta(i)">Editar Nombre</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

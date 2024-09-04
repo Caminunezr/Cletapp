@@ -1,27 +1,61 @@
-import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-rutas',
   templateUrl: 'rutas.page.html',
   styleUrls: ['rutas.page.scss'],
 })
-export class RutasPage {
+export class RutasPage implements OnInit {
+  rutasGuardadas: any[] = [];
 
-  rutasGuardadas: any[] = [
-    { nombre: 'Ruta 1', distancia: '5.2 km', tiempo: '24:15 min' },
-    { nombre: 'Ruta 2', distancia: '3.8 km', tiempo: '18:30 min' },
-    { nombre: 'Ruta 3', distancia: '7.1 km', tiempo: '35:10 min' },
-  ];
+  constructor(private navCtrl: NavController, private alertController: AlertController) {}
 
-  constructor(private navCtrl: NavController) {}
+  ngOnInit() {
+    this.cargarRutasGuardadas(); // Cargar rutas guardadas cuando la página se inicializa
+  }
 
-  verRuta(ruta: any) {  // Se ha especificado el tipo any para el parámetro ruta
-    // Aquí puedes implementar la lógica para ver los detalles de la ruta seleccionada
+  cargarRutasGuardadas() {
+    const rutas = localStorage.getItem('rutasGuardadas');
+    if (rutas) {
+      this.rutasGuardadas = JSON.parse(rutas);
+    }
+  }
+
+  verRuta(ruta: any) {
     console.log('Ver detalles de la ruta:', ruta);
   }
 
   iniciarNuevaRuta() {
     this.navCtrl.navigateForward('/track-route');
+  }
+
+  async editarNombreRuta(index: number) {
+    const alert = await this.alertController.create({
+      header: 'Editar Nombre de Ruta',
+      inputs: [
+        {
+          name: 'nuevoNombre',
+          type: 'text',
+          placeholder: 'Nuevo Nombre',
+          value: this.rutasGuardadas[index].nombre
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Guardar',
+          handler: (data) => {
+            this.rutasGuardadas[index].nombre = data.nuevoNombre;
+            localStorage.setItem('rutasGuardadas', JSON.stringify(this.rutasGuardadas));
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

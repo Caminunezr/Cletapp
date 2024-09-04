@@ -1,59 +1,44 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>
-        <img src="assets/icon/logo.png" alt="Cletapp Logo" class="app-logo">
-      </ion-title>
-      <ion-buttons slot="end">
-        <ion-icon name="sunny" class="weather-icon"></ion-icon>
-        <ion-label>22°C</ion-label>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <div class="summary-card">
-      <h2>Última Actividad</h2>
-      <p>Distancia: 5.2 km</p>
-      <p>Tiempo: 24:15 min</p>
-      <p>Ruta: Parque Bicentenario</p>
-    </div>
-  
-    <div class="action-buttons">
-      <ion-button expand="full" fill="solid" color="primary" (click)="startNewRoute()">
-        <ion-icon slot="start" name="walk"></ion-icon>
-        Iniciar Nueva Ruta
-      </ion-button>
-      <ion-button expand="full" fill="outline" color="secondary" (click)="viewSavedRoutes()">
-        <ion-icon slot="start" name="map"></ion-icon>
-        Ver Rutas Guardadas
-      </ion-button>
-      <ion-button expand="full" fill="outline" color="tertiary" (click)="viewStats()">
-        <ion-icon slot="start" name="stats-chart"></ion-icon>
-        Estadísticas
-      </ion-button>
-    </div>
-  </ion-content>
-  
-  <ion-footer>
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="inicio">
-        <ion-icon name="home"></ion-icon>
-        <ion-label>Inicio</ion-label>
-      </ion-tab-button>
-  
-      <ion-tab-button tab="rutas">
-        <ion-icon name="map"></ion-icon>
-        <ion-label>Rutas</ion-label>
-      </ion-tab-button>
-  
-      <ion-tab-button tab="estadisticas">
-        <ion-icon name="stats-chart"></ion-icon>
-        <ion-label>Estadísticas</ion-label>
-      </ion-tab-button>
-  
-      <ion-tab-button tab="perfil">
-        <ion-icon name="person"></ion-icon>
-        <ion-label>Perfil</ion-label>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-footer>
+  <ion-toolbar>
+    <ion-title>
+      <img src="assets/icon/Logo.png" alt="Cletapp Logo" class="app-logo">
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-icon name="sunny" class="weather-icon"></ion-icon>
+      <ion-label>{{ currentWeather.temp }}</ion-label>
+      <img *ngIf="currentWeather.icon" [src]="currentWeather.icon" alt="Weather Icon" class="weather-icon">
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Contenedor para el mapa de Google -->
+  <div id="map" style="height: 300px;"></div>
+
+  <!-- Tarjeta para la Información de la Actividad -->
+  <div class="summary-card">
+    <h2>Actividad Actual</h2>
+    <p *ngIf="isTracking"><strong>Distancia Recorrida:</strong> {{ totalDistance.toFixed(2) }} km</p>
+    <p *ngIf="isTracking"><strong>Tiempo Transcurrido:</strong> {{ elapsedTime }}</p>
+    <p *ngIf="isTracking"><strong>Ubicación Actual:</strong> {{ currentStreet }}</p>
+    <p *ngIf="!isTracking"><strong>Distancia:</strong> 5.2 km</p>
+    <p *ngIf="!isTracking"><strong>Tiempo:</strong> 24:15 min</p>
+    <p *ngIf="!isTracking"><strong>Ruta:</strong> Parque Bicentenario</p>
+  </div>
+
+  <!-- Botones de Acción -->
+  <div class="action-buttons">
+    <ion-button expand="full" fill="solid" color="primary" (click)="startNewRoute()">
+      <ion-icon slot="start" [name]="isTracking ? 'stop' : 'walk'"></ion-icon>
+      {{ isTracking ? 'Detener Ruta' : 'Iniciar Nueva Ruta' }}
+    </ion-button>
+    <ion-button expand="full" fill="outline" color="secondary" (click)="viewSavedRoutes()">
+      <ion-icon slot="start" name="map"></ion-icon>
+      Ver Rutas Guardadas
+    </ion-button>
+    <ion-button expand="full" fill="outline" color="tertiary" (click)="viewStats()">
+      <ion-icon slot="start" name="stats-chart"></ion-icon>
+      Estadísticas
+    </ion-button>
+  </div>
+</ion-content>
