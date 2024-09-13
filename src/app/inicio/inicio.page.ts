@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
-import { AlertController, NavController } from '@ionic/angular'; // Asegúrate de importar NavController
+import { AlertController, NavController } from '@ionic/angular';
 
 declare var google: any; // Declaración para usar la API de Google Maps
 
@@ -15,6 +15,7 @@ export class InicioPage implements AfterViewInit {
   currentPosition: any;
   map: any; // Variable para almacenar la instancia del mapa
   marker: any; // Marcador para la ubicación actual
+  polyline: any; // Polyline para dibujar la ruta en el mapa
   savedRoutes: any[] = []; // Array para guardar las rutas
 
   startTime: Date = new Date();
@@ -51,6 +52,16 @@ export class InicioPage implements AfterViewInit {
       title: 'Ubicación Actual'
     });
 
+    // Inicializa la Polyline para trazar la ruta en el mapa
+    this.polyline = new google.maps.Polyline({
+      path: [],
+      geodesic: true,
+      strokeColor: '#FF0000', // Color de la línea (puedes cambiarlo)
+      strokeOpacity: 1.0,
+      strokeWeight: 4, // Grosor de la línea
+      map: this.map
+    });
+
     this.updateWeather(coordinates.coords.latitude, coordinates.coords.longitude);
   }
 
@@ -62,6 +73,9 @@ export class InicioPage implements AfterViewInit {
       this.trackedRoute = [];
       this.totalDistance = 0;
       this.startTime = new Date(); // Registrar la hora de inicio
+
+      // Limpia la Polyline al comenzar una nueva ruta
+      this.polyline.setPath([]);
 
       // Inicializar el contador de tiempo
       this.timerInterval = setInterval(() => this.updateElapsedTime(), 1000);
@@ -96,6 +110,11 @@ export class InicioPage implements AfterViewInit {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         });
+
+        // Añadir el nuevo punto al Polyline para trazar la ruta
+        const path = this.polyline.getPath();
+        path.push(newLatLng);
+        this.polyline.setPath(path); // Actualizar la Polyline con la nueva ruta
 
         if (lastPosition) {
           this.totalDistance += this.calculateDistance(lastPosition, position.coords);
@@ -161,8 +180,12 @@ export class InicioPage implements AfterViewInit {
 
   updateElapsedTime() {
     const now = new Date();
-    this.elapsedTime = this.calculateElapsedTime(this.startTime, now);
-  }
+    const diffMs = now.getTime() - this.startTime.getTime();
+    const diffHrs = Math.floor((diffMs % 86400000) / 3600000);
+    const diffMins = Math.floor(((diffMs % 86400000) % 3600000) / 60000);
+    const diffSecs = Math.floor((((diffMs % 86400000) % 3600000) % 60000) / 1000);
+    this.elapsedTime = `${diffHrs}h ${diffMins}m ${diffSecs}s`;
+}
 
   async updateCurrentStreet(coords: { latitude: number; longitude: number; }) {
     const geocoder = new google.maps.Geocoder();
@@ -222,5 +245,17 @@ export class InicioPage implements AfterViewInit {
 
   viewStats() {
     this.navCtrl.navigateRoot('/tabs/estadisticas'); // Navegar a la tab de Estadísticas
+  }
+
+  // Generar mensaje motivacional o advertencia en base al clima
+  generateWeatherMessage(temp: string): string {
+    const temperature = parseFloat(temp);
+    if (temperature > 35) {
+      return 'La temperatura es muy alta. ¡Ten cuidado al salir! Mantente hidratado y evita largas exposiciones al sol.';
+    } else if (temperature < 5) {
+      return 'Hace mucho frío afuera. Asegúrate de abrigarte bien antes de salir a tu recorrido.';
+    } else {
+      return 'La temperatura es agradable. ¡Disfruta tu recorrido!';
+    }
   }
 }

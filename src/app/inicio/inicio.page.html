@@ -17,12 +17,17 @@
   <!-- Tarjeta para la Información de la Actividad -->
   <div class="summary-card">
     <h2>Actividad Actual</h2>
-    <p *ngIf="isTracking"><strong>Distancia Recorrida:</strong> {{ totalDistance.toFixed(2) }} km</p>
-    <p *ngIf="isTracking"><strong>Tiempo Transcurrido:</strong> {{ elapsedTime }}</p>
-    <p *ngIf="isTracking"><strong>Ubicación Actual:</strong> {{ currentStreet }}</p>
-    <p *ngIf="!isTracking"><strong>Distancia:</strong> 5.2 km</p>
-    <p *ngIf="!isTracking"><strong>Tiempo:</strong> 24:15 min</p>
-    <p *ngIf="!isTracking"><strong>Ruta:</strong> Parque Bicentenario</p>
+    
+    <ng-container *ngIf="isTracking; else weatherMessage">
+      <p><strong>Distancia Recorrida:</strong> {{ totalDistance.toFixed(2) }} km</p>
+      <p><strong>Tiempo Transcurrido:</strong> {{ elapsedTime }}</p> <!-- Aquí se actualiza el tiempo con segundos -->
+      <p><strong>Ubicación Actual:</strong> {{ currentStreet }}</p>
+    </ng-container>
+    
+    <!-- Mensaje motivacional o de advertencia dependiendo del clima -->
+    <ng-template #weatherMessage>
+      <p>{{ generateWeatherMessage(currentWeather.temp) }}</p>
+    </ng-template>
   </div>
 
   <!-- Botones de Acción -->
