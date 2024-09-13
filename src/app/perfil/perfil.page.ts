@@ -8,8 +8,8 @@ import { NavController } from '@ionic/angular';
 })
 export class PerfilPage implements OnInit {
 
-  userName = 'Camilo Núñez Reyes';
-  userEmail = 'camilo@example.com';
+  userName = 'usernames';
+  userEmail = 'usernames@example.com';
 
   constructor(private navCtrl: NavController) { }
 

@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular'; // Asegúrate de importar NavController
 
 declare var google: any; // Declaración para usar la API de Google Maps
 
@@ -26,7 +26,7 @@ export class InicioPage implements AfterViewInit {
 
   timerInterval: any; // Intervalo para actualizar el tiempo transcurrido
 
-  constructor(private alertController: AlertController) {}
+  constructor(private alertController: AlertController, private navCtrl: NavController) {} // Inyecta NavController
 
   ngAfterViewInit() {
     this.loadMap();
@@ -217,10 +217,10 @@ export class InicioPage implements AfterViewInit {
   }
 
   viewSavedRoutes() {
-    console.log('Ver rutas guardadas:', this.savedRoutes);
+    this.navCtrl.navigateRoot('/tabs/rutas'); // Navegar a la tab de Rutas Guardadas
   }
 
   viewStats() {
-    console.log('Ver estadísticas');
+    this.navCtrl.navigateRoot('/tabs/estadisticas'); // Navegar a la tab de Estadísticas
   }
 }

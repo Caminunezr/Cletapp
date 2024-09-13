@@ -4,7 +4,6 @@
       <img src="assets/icon/Logo.png" alt="Cletapp Logo" class="app-logo">
     </ion-title>
     <ion-buttons slot="end">
-      <ion-icon name="sunny" class="weather-icon"></ion-icon>
       <ion-label>{{ currentWeather.temp }}</ion-label>
       <img *ngIf="currentWeather.icon" [src]="currentWeather.icon" alt="Weather Icon" class="weather-icon">
     </ion-buttons>
