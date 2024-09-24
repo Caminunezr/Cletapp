@@ -1,30 +1,30 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>Perfil</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <div class="profile-card">
-      <ion-avatar>
-        <img src="assets/imgs/user-avatar.png" alt="User Avatar">
-      </ion-avatar>
-      <h2>{{ userName }}</h2>
-      <p>{{ userEmail }}</p>
-    </div>
-  
-    <ion-list>
-      <ion-item (click)="editProfile()">
-        <ion-icon name="create" slot="start"></ion-icon>
-        Editar Perfil
-      </ion-item>
-      <ion-item (click)="viewAchievements()">
-        <ion-icon name="trophy" slot="start"></ion-icon>
-        Mis Logros
-      </ion-item>
-      <ion-item (click)="logout()">
-        <ion-icon name="log-out" slot="start"></ion-icon>
-        Cerrar Sesión
-      </ion-item>
-    </ion-list>
-  </ion-content>
+  <ion-toolbar>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="profile-card">
+    <ion-avatar>
+      <img [src]="userAvatar" alt="User Avatar">
+    </ion-avatar>
+    <h2>{{ userName }}</h2>
+    <p>{{ userEmail }}</p>
+  </div>
+
+  <ion-list>
+    <ion-item (click)="editProfile()">
+      <ion-icon name="create" slot="start"></ion-icon>
+      Editar Perfil
+    </ion-item>
+    <ion-item (click)="viewAchievements()">
+      <ion-icon name="trophy" slot="start"></ion-icon>
+      Mis Logros
+    </ion-item>
+    <ion-item (click)="logout()">
+      <ion-icon name="log-out" slot="start"></ion-icon>
+      Cerrar Sesión
+    </ion-item>
+  </ion-list>
+</ion-content>

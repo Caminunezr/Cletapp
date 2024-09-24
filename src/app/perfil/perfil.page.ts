@@ -1,34 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.page.html',
   styleUrls: ['./perfil.page.scss'],
 })
-export class PerfilPage implements OnInit {
+export class PerfilPage {
+  userName: string = '';
+  userEmail: string = '';
+  userAvatar: string = 'assets/imgs/user-avatar.png';
 
-  userName = 'usernames';
-  userEmail = 'usernames@example.com';
+  constructor(private navCtrl: NavController, private authService: AuthService) {}
 
-  constructor(private navCtrl: NavController) { }
-
-  ngOnInit() {
-    // Aquí podrías cargar la información del usuario desde un servicio
-  }
-
-  editProfile() {
-    // Navegar a la página de edición de perfil
-    this.navCtrl.navigateForward('/edit-profile');
+  ionViewWillEnter() {
+    const user = this.authService.getLoggedInUser();
+    if (user) {
+      this.userName = user.name;
+      this.userEmail = user.email;
+      if (user.avatar) {
+        this.userAvatar = user.avatar;
+      }
+    }
   }
 
   viewAchievements() {
-    // Navegar a la página de logros
     this.navCtrl.navigateForward('/achievements');
   }
 
+  editProfile() {
+    this.navCtrl.navigateForward('/edit-profile');
+  }
+
   logout() {
-    // Lógica de cierre de sesión
-    console.log('Cerrar sesión');
+    this.authService.logout();
+    this.navCtrl.navigateRoot('/login');
   }
 }
