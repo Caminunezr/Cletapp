@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig = {
+    apiKey: "AIzaSyCMeOzbezXcBtqJa7fF7nrHOgFitCziEvw",
+    authDomain: "cletapp-2024.firebaseapp.com",
+    projectId: "cletapp-2024",
+    storageBucket: "cletapp-2024.appspot.com",
+    messagingSenderId: "352423876971",
+    appId: "1:352423876971:web:44ea634610b7ba2adf542e"
+  },
 };
 
 /*
@@ -14,3 +22,4 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+kjnfjkdsfksd
